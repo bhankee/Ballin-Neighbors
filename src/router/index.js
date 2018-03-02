@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import Meetups from '@/components/Meetup/Meetups'
-import CreateMeetup from '@/components/Meetup/CreateMeetup'
-import Profile from '@/components/User/Profile'
-import Signup from '@/components/User/Signup'
-import Signin from '@/components/User/Signin'
-import Meetup from '@/components/Meetup/Meetup'
-import AuthGuard from './auth-guard'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '@/components/Home';
+import Teams from '@/components/Team/Teams';
+import CreateTeam from '@/components/Team/CreateTeam';
+import Profile from '@/components/User/Profile';
+import Signup from '@/components/User/Signup';
+import Signin from '@/components/User/Signin';
+import Team from '@/components/Team/Team';
+import AuthGuard from './auth-guard';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -19,21 +19,21 @@ export default new Router({
       component: Home
     },
     {
-      path: '/meetups',
-      name: 'Meetups',
-      component: Meetups
+      path: '/teams',
+      name: 'Teams',
+      component: Teams
     },
     {
-      path: '/meetup/new',
-      name: 'CreateMeetup',
-      component: CreateMeetup,
+      path: '/team/new',
+      name: 'CreateTeam',
+      component: CreateTeam,
       beforeEnter: AuthGuard
     },
     {
-      path: '/meetups/:id',
-      name: 'Meetup',
+      path: '/teams/:id',
+      name: 'Team',
       props: true,
-      component: Meetup
+      component: Team
     },
     {
       path: '/profile',
@@ -53,4 +53,4 @@ export default new Router({
     }
   ],
   mode: 'history'
-})
+});
