@@ -21,7 +21,7 @@
    
     <v-layout row wrap  class="mt-2">
       <v-flex xs12 class="text-xs-center">
-       <p>Join our awesome meetups!</p>
+       <p>GROWING YOUR NEIGHBORHOOD!</p>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,19 +29,8 @@
 
 <script>
 export default {
-  computed: {
-    teams() {
-      return this.$store.getters.featuredTeams;
-    },
-    loading() {
-      return this.$store.getters.loading;
-    }
-  },
-  methods: {
-    onLoadTeams(id) {
-      this.$router.push('/teams/' + id);
-    }
-  }
+  computed: {},
+  methods: {}
 };
 </script>
 

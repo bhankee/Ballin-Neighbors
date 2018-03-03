@@ -2,19 +2,19 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h4>Create a new Meetup</h4>
+        <h4>Create a new Team</h4>
       </v-flex>
     </v-layout>
     <v-layout row>
       <v-flex xs12>
-        <form @submit.prevent="onCreateMeetup">
+        <form @submit.prevent="onCreateTeam">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="title"
-                label="Title"
-                id="title"
-                v-model="title"
+                name="teamName"
+                label="teamName"
+                id="teamName"
+                v-model="teamName"
                 required></v-text-field>
             </v-flex>
           </v-layout>
@@ -27,33 +27,7 @@
                 v-model="location"
                 required></v-text-field>
             </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-text-field
-                name="imageUrl"
-                label="Image URL"
-                id="image-url"
-                v-model="imageUrl"
-                required></v-text-field>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <img :src="imageUrl" height="150">
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-text-field
-                name="description"
-                label="Description"
-                id="description"
-                multi-line
-                v-model="description"
-                required></v-text-field>
-            </v-flex>
-          </v-layout>
+          </v-layout>         
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <h4>Choose a Data & Time</h4>
@@ -74,7 +48,7 @@
               <v-btn
                 class="primary"
                 :disabled="!formIsValid"
-                type="submit">Create Meetup</v-btn>
+                type="submit">Create Team</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -84,53 +58,48 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        title: '',
-        location: '',
-        imageUrl: '',
-        description: '',
-        date: new Date(),
-        time: new Date()
-      }
+export default {
+  data() {
+    return {
+      teamName: '',
+      location: '',
+      players: '',
+      date: new Date(),
+      time: new Date()
+    };
+  },
+  computed: {
+    formIsValid() {
+      return this.teamName !== '' && this.location !== '';
     },
-    computed: {
-      formIsValid () {
-        return this.title !== '' &&
-          this.location !== '' &&
-          this.imageUrl !== '' &&
-          this.description !== ''
-      },
-      submittableDateTime () {
-        const date = new Date(this.date)
-        if (typeof this.time === 'string') {
-          let hours = this.time.match(/^(\d+)/)[1]
-          const minutes = this.time.match(/:(\d+)/)[1]
-          date.setHours(hours)
-          date.setMinutes(minutes)
-        } else {
-          date.setHours(this.time.getHours())
-          date.setMinutes(this.time.getMinutes())
-        }
-        return date
+    submittableDateTime() {
+      const date = new Date(this.date);
+      if (typeof this.time === 'string') {
+        let hours = this.time.match(/^(\d+)/)[1];
+        const minutes = this.time.match(/:(\d+)/)[1];
+        date.setHours(hours);
+        date.setMinutes(minutes);
+      } else {
+        date.setHours(this.time.getHours());
+        date.setMinutes(this.time.getMinutes());
       }
-    },
-    methods: {
-      onCreateMeetup () {
-        if (!this.formIsValid) {
-          return
-        }
-        const meetupData = {
-          title: this.title,
-          location: this.location,
-          imageUrl: this.imageUrl,
-          description: this.description,
-          date: this.submittableDateTime
-        }
-        this.$store.dispatch('createMeetup', meetupData)
-        this.$router.push('/meetups')
+      return date;
+    }
+  },
+  methods: {
+    onCreateTeam() {
+      if (!this.formIsValid) {
+        return;
       }
+      const teamData = {
+        teamName: this.teamName,
+        location: this.location,
+        players: this.players,
+        date: this.submittableDateTime
+      };
+      this.$store.dispatch('createTeam', teamData);
+      this.$router.push('/teams');
     }
   }
+};
 </script>

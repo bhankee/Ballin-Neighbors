@@ -8,20 +8,18 @@ export const store = new Vuex.Store({
   state: {
     loadedTeams: [
       {
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
         id: 'afajfjadfaadfa323',
-        title: 'Meetup in New York',
-        date: new Date(),
+        teamName: 'Whitehall Magic',
+        sport: 'Basketball',
+        players: ['Brad', 'Owen'],
         location: 'New York',
         description: 'New York, New York!'
       },
       {
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
         id: 'aadsfhbkhlk1241',
-        title: 'Meetup in Paris',
-        date: new Date(),
+        teamName: 'Blazers',
+        sport: 'Basketball',
+        players: ['Brad', 'Angel'],
         location: 'Paris',
         description: "It's Paris!"
       }
@@ -51,7 +49,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    loadMeetups({ commit }) {
+    loadAllTeams({ commit }) {
       commit('setLoading', true);
       firebase
         .database()
@@ -64,8 +62,7 @@ export const store = new Vuex.Store({
             teams.push({
               id: key,
               title: obj[key].title,
-              description: obj[key].description,
-              imageUrl: obj[key].imageUrl,
+              players: obj[key].players,
               date: obj[key].date,
               creatorId: obj[key].creatorId
             });
@@ -80,10 +77,9 @@ export const store = new Vuex.Store({
     },
     createTeam({ commit, getters }, payload) {
       const team = {
-        title: payload.title,
+        teamName: payload.teamName,
         location: payload.location,
-        imageUrl: payload.imageUrl,
-        description: payload.description,
+        players: payload.players,
         date: payload.date.toISOString(),
         creatorId: getters.user.id
       };
@@ -95,6 +91,29 @@ export const store = new Vuex.Store({
           const key = data.key;
           commit('createTeam', {
             ...team,
+            id: key
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // Reach out to firebase and store it
+    },
+    /*----------------------------------------
+      USE TO PUSH PLAYERS TO PLAYERS ARRAY
+    ----------------------------------------*/
+    addPlayers({ commit, getters }, payload) {
+      const player = {
+        players: payload.players
+      };
+      firebase
+        .database()
+        .ref('teams')
+        .push(team.players)
+        .then(data => {
+          const key = data.key;
+          commit('addPlayers', {
+            ...team.players,
             id: key
           });
         })
@@ -156,8 +175,8 @@ export const store = new Vuex.Store({
   },
   getters: {
     loadedTeams(state) {
-      return state.loadedTeams.sort((meetupA, meetupB) => {
-        return meetupA.date > meetupB.date;
+      return state.loadedTeams.sort((teamA, teamB) => {
+        return teamA > teamB;
       });
     },
     featuredTeams(state, getters) {
