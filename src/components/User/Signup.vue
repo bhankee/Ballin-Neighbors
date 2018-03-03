@@ -64,42 +64,47 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        email: '',
-        password: '',
-        confirmPassword: ''
-      }
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    };
+  },
+  computed: {
+    comparePasswords() {
+      return this.password !== this.confirmPassword
+        ? 'Foul Ball: Passwords do not match'
+        : '';
     },
-    computed: {
-      comparePasswords () {
-        return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
-      },
-      user () {
-        return this.$store.getters.user
-      },
-      error () {
-        return this.$store.getters.error
-      },
-      loading () {
-        return this.$store.getters.loading
-      }
+    user() {
+      return this.$store.getters.user;
     },
-    watch: {
-      user (value) {
-        if (value !== null && value !== undefined) {
-          this.$router.push('/')
-        }
-      }
+    error() {
+      return this.$store.getters.error;
     },
-    methods: {
-      onSignup () {
-        this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
-      },
-      onDismissed () {
-        this.$store.dispatch('clearError')
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/');
       }
     }
+  },
+  methods: {
+    onSignup() {
+      this.$store.dispatch('signUserUp', {
+        email: this.email,
+        password: this.password
+      });
+    },
+    onDismissed() {
+      this.$store.dispatch('clearError');
+    }
   }
+};
 </script>

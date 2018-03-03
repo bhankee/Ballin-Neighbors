@@ -20,7 +20,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <form @submit.prevent="onAddPlayer">
-            <v-text-field></v-text-field>
+            <v-text-field v-model="players"></v-text-field>
             <v-btn class="primary" type="submit">Add Player</v-btn>
             </form>
           </v-card-actions>
@@ -35,7 +35,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      players: ''
+      players: []
     };
   },
   computed: {
@@ -49,8 +49,6 @@ export default {
         players: this.players
       };
       this.$store.dispatch('addPlayers', playerData);
-
-      this.$router.push('/teams');
     }
   }
 };

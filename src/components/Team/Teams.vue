@@ -9,8 +9,9 @@
                 <v-card-title primary-title>
                   <div>
                     <!--mb-0 is margin-bottom-->
-                    <h4 class="white--text mb-0">{{ team.teamName }}</h4>
-                    <h5 class="white--text mb-0">{{ team.sport }}</h5>                    
+                   
+                    <h4 class="white--text ">{{ team.teamName }}</h4>
+                    <h5 class="white--text ">{{ team.sport }}</h5>                    
                   </div>
                 </v-card-title>
                 <v-card-actions>

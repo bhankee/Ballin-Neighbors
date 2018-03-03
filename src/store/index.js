@@ -56,17 +56,20 @@ export const store = new Vuex.Store({
         .ref('teams')
         .once('value')
         .then(data => {
+          // DATA IS THE DATA FROM FIREBASE AND DATA.VAL GIVES PORPERTIES ON OBJECTS OF DATA
           const teams = [];
           const obj = data.val();
           for (let key in obj) {
             teams.push({
               id: key,
-              title: obj[key].title,
+              teamName: obj[key].teamName,
+              sport: obj[key].sport,
               players: obj[key].players,
               date: obj[key].date,
               creatorId: obj[key].creatorId
             });
           }
+          console.log('ACTIONS LOADALLTEAMS FIRED!');
           commit('setLoadedTeams', teams);
           commit('setLoading', false);
         })
@@ -103,13 +106,14 @@ export const store = new Vuex.Store({
       USE TO PUSH PLAYERS TO PLAYERS ARRAY
     ----------------------------------------*/
     addPlayers({ commit, getters }, payload) {
+      console.log('PAYLOAD: ' + JSON.stringify(payload, null, 4));
       const player = {
         players: payload.players
       };
       firebase
         .database()
         .ref('teams')
-        .push(team.players)
+        .push(player)
         .then(data => {
           const key = data.key;
           commit('addPlayers', {
@@ -175,8 +179,9 @@ export const store = new Vuex.Store({
   },
   getters: {
     loadedTeams(state) {
-      return state.loadedTeams.sort((teamA, teamB) => {
-        return teamA > teamB;
+      return state.loadedTeams.sort(teams => {
+        console.log('GETTER TEAMS: ' + JSON.stringify(teams, null, 4));
+        return teams;
       });
     },
     featuredTeams(state, getters) {

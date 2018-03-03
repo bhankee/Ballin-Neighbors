@@ -33,6 +33,6 @@ new Vue({
         this.$store.dispatch('autoSignIn', user);
       }
     });
-    this.$store.dispatch('loadTeams');
+    this.$store.dispatch('loadAllTeams');
   }
 });
