@@ -1,21 +1,13 @@
-# yt-devmeetup-vue
+# Ballin Neighbors
 
-A dev meetup application built with Vue + Vuetify + Firebase.
+A web app made to connect and grow neighborhoods by building sports teams.
 
-## Build Setup
+## Tech Utilized
 
-``` bash
-# install dependencies
-npm install
+* Vue - JS framework
+* Vuex  - State and central store
+* Vuetify - styling and responsiveness.
+* Firebase - Store data
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
