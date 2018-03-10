@@ -21,11 +21,13 @@ module.exports = {
     'spaced-comment': 0,
     'no-undef': 0,
     'no-tabs': 0,
+    'indent': 0,
     'no-unused-vars': 0,
     skipBlankLines: 0,
     ignoreComments: 0,
+    'no-template-curly-in-string': 0,
     'space-before-function-paren': 0,
-    'no-trailing-spaces': [2, { skipBlankLines: true }],
+    'no-trailing-spaces': 0,
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

@@ -27,8 +27,7 @@
                 v-model="location"
                 required></v-text-field>
             </v-flex>
-          </v-layout>         
-         
+          </v-layout>          
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-btn
@@ -55,22 +54,21 @@ export default {
   computed: {
     formIsValid() {
       return this.teamName !== '' && this.location !== '';
-    },
-
-    methods: {
-      onCreateTeam() {
-        if (!this.formIsValid) {
-          return;
-        }
-        const teamData = {
-          teamName: this.teamName,
-          location: this.location,
-          players: this.players,
-          date: this.submittableDateTime
-        };
-        this.$store.dispatch('createTeam', teamData);
-        this.$router.push('/teams');
+    }
+  },
+  methods: {
+    onCreateTeam() {
+      if (!this.formIsValid) {
+        return;
       }
+      const teamData = {
+        teamName: this.teamName,
+        location: this.location,
+        players: this.players,
+        date: this.submittableDateTime
+      };
+      this.$store.dispatch('createTeam', teamData);
+      this.$router.push('/teams');
     }
   }
 };
